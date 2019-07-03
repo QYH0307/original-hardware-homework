@@ -27,12 +27,11 @@ char MORSE[][4] = {
   {'-', '.', '-', '-'}, //Y
   {'-', '-', '.', '.'}  //Z
 };
-
-void setup() {
-  Serial.begin(9600);//设置通信波特率
-}
-
-void loop() {
+  void setup()
+  {
+    Serial.begin(9600);//设置通信串口波特率，进行初始化
+  }
+ void loop() {
   String str = "";  //定义未转义字符串
   String morse = "";  //定义转义后字符串
   int i, t , temp = 0;
@@ -44,22 +43,22 @@ void loop() {
     n++;
   }
 
-  if (temp) {
-    //查询Morse电码表并进行转换
-    for (i = 0; i < n; i++)
+   if(temp)
     {
-      for (t = 0; t < 4; t++)
+      for(i=0;i<n;i++)
       {
-        //判断是否为小写字母，如果是则转义
-        if (str[i] >= 97 && str[i] <= 122)
+        for(t=0;t<4;t++)
         {
-          morse += char(MORSE[int(str[i] - 97)][t]);
+        if(str[i]>=97&&str[i]<=122)
+        {
+          morse+=char(MORSE[int(str[i]-97)][t]);
+          
         }
       }
-      //每段Morse之后补空格
-      morse += ' ';
+      morse+=' ';
     }
-    Serial.println(morse);  //串口传入
+    Serial.println(morse);
+    }
+    delay(2);
   }
-  delay(2);
-}
+//程序解释：通过把26个字母的莫斯电码构造成一个数组，然后根据串口程序调用再进行发送。
